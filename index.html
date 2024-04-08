@@ -9,12 +9,11 @@
 	<title>تۆرکجه کیبوْرد</title>
 	<style>
 		body {
-			max-width: 730px;
-			margin: 0 auto;
+			width: calc(100% - 20px);
 		}
 
 		#textbox {
-			width: 100%;
+			width: calc(100% - 20px);
 			padding: 10px;
 			margin-top: 20px;
 			border: 1px solid black;
@@ -32,17 +31,17 @@
 		}
 
 		#keyboard {
+			width: calc(100% - 20px);
 			border: 1px solid #ccc;
 			border-radius: 5px;
 			padding: 10px;
-			width: 100%;
 			display: block;
 			font-size: 20px;
 		}
 
-		#keyboard .row {
-			display: block;
-			text-align: center;
+		.row {
+			display: flex;
+			justify-content: center;
 			margin-bottom: 5px;
 		}
 
@@ -51,12 +50,27 @@
 			border-radius: 3px;
 			cursor: pointer;
 			display: inline-block;
-			padding: 0 5px 10px;
-			min-width: 30px;
+			padding: 0 0 5px;
 			max-height: 30px;
-			min-height: 30px;
 			vertical-align: middle;
 			transition: background 0.3s;
+			width: 100%;
+			text-align: center;
+			margin-right: 2px;
+		}
+
+		@media screen and (max-width: 380px) {
+			#textbox {
+				font-size: 16px;
+			}
+			.key,.actionkey {
+				font-size: 14px;
+			}
+			
+		}
+
+		#space {
+			flex: 1 1 200%;
 		}
 
 		.actionkey {
@@ -64,20 +78,19 @@
 			border-radius: 3px;
 			cursor: pointer;
 			display: inline-block;
-			padding: 0 5px 10px;
-			min-width: 30px;
 			max-height: 30px;
-			min-height: 30px;
 			vertical-align: middle;
 			transition: background 0.3s;
+			width: 100%;
+			text-align: center;			
+			padding: 0 0 5px;
+			margin-right: 2px;
+
 		}
 
-		.actionkey:active,.key:active {
+		.actionkey:active,
+		.key:active {
 			background: lightgray;
-		}
-
-		#space {
-			width: 300px;
 		}
 
 		small {
@@ -162,7 +175,7 @@
 			<div class="key">:</div>
 			<div class="key">.</div>
 			<div class="key">/</div>
-			<div class="key">\</div>
+			<div class="key">\\</div>
 		</div>
 
 		<div class="row">
@@ -174,9 +187,8 @@
 	</div>
 
 	<footer>
-		<a href="https://arazgholami.github.io/turkcekeyboard/" draggable="true"
-			onclick="alert('Drag this link to your bookmarks bar to create a bookmark.'); return false;">تۆرکجه کیبوْرد</a>
-		|
+		<a href="https://arazgholami.github.io/turkcekeyboard/" draggable="true">تۆرکجه کیبوْرد</a>
+		| v2.0 | 
 		Made with ❤️ by <a href="https://arazgholami.com">Araz Gholami</a>
 	</footer>
 

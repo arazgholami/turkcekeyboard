@@ -33,18 +33,16 @@
 			border: 1px solid #ccc;
 			border-radius: 3px;
 			cursor: pointer;
-			padding: 5px;
+			padding: 0 5px 5px;
 			max-height: 30px;
 			vertical-align: middle;
 			background: white;
 			color: black;
 		}
 
-
 		#textbox {
 			width: calc(100% - 20px);
 			padding: 10px;
-			margin-top: 20px;
 			border: 1px solid black;
 			border-radius: 5px;
 			direction: rtl;
@@ -74,12 +72,12 @@
 			margin-bottom: 5px;
 		}
 
-		.key {
+		.kbtn {
 			border: 1px solid #ccc;
 			border-radius: 3px;
 			cursor: pointer;
 			display: inline-block;
-			padding: 0 0 5px;
+			padding: 0 0 10px;
 			max-height: 30px;
 			vertical-align: middle;
 			transition: background 0.3s;
@@ -88,38 +86,19 @@
 			margin-right: 2px;
 		}
 
-		@media screen and (max-width: 380px) {
+		@media screen and (max-width: 320px) {
 			#textbox {
 				font-size: 16px;
 			}
-			.key,.actionkey {
+
+			.kbtn {
 				font-size: 14px;
+				padding: 0;
 			}
-			
 		}
 
 		#space {
 			flex: 1 1 200%;
-		}
-
-		.actionkey {
-			border: 1px solid #ccc;
-			border-radius: 3px;
-			cursor: pointer;
-			display: inline-block;
-			max-height: 30px;
-			vertical-align: middle;
-			transition: background 0.3s;
-			width: 100%;
-			text-align: center;			
-			padding: 0 0 5px;
-			margin-right: 2px;
-
-		}
-
-		.actionkey:active,
-		.key:active {
-			background: lightgray;
 		}
 
 		small {
@@ -139,141 +118,237 @@
 			color: gray !important;
 			text-decoration: none;
 		}
+
+		.has-more {
+			position: relative;
+		}
+
+		.more {
+			position: absolute;
+			top: -50px;
+			left: 0;
+			background: white;
+			border-radius: 5px;
+			display: none;
+			justify-content: center;
+			padding: 5px;
+			box-shadow: 0 0 5px gray;
+			width: inherit;
+		}
+
+		.v4 {
+			left: -60px;
+			width: 140px;
+		}
+
+		.v3 {
+			left: -30px;
+			width: 100px;
+		}
+
+		.show {
+			display: flex;
+		}
 	</style>
 </head>
 
 <body>
 	<h1>تۆرکجه کیبوْرد</h1>
 	<ul class="actions">
-		<li><button data-action="copy">Copy</button></li>
+		<li><button data-action="copy">کپی</button></li>
 	</ul>
 	<textarea id="textbox"></textarea>
 	<div id="keyboard">
 		<div class="row">
-			<div class="key">ض</div>
-			<div class="key">ص</div>
-			<div class="key">ث</div>
-			<div class="key">ق</div>
-			<div class="key">ف</div>
-			<div class="key">غ</div>
-			<div class="key">ع</div>
-			<div class="key">ه</div>
-			<div class="key">خ</div>
-			<div class="key">ح</div>
-			<div class="key">ج</div>
-			<div class="key">چ</div>
+			<div class="kbtn key" data-value="ض">ض</div>
+			<div class="kbtn key" data-value="ص">ص</div>
+			<div class="kbtn key" data-value="ث">ث</div>
+			<div class="kbtn key" data-value="ق">ق</div>
+			<div class="kbtn key" data-value="ف">ف</div>
+			<div class="kbtn key" data-value="غ">غ</div>
+			<div class="kbtn key" data-value="ع">ع</div>
+			<div class="kbtn key" data-value="ه">ه</div>
+			<div class="kbtn key" data-value="خ">خ</div>
+			<div class="kbtn key" data-value="ح">ح</div>
+			<div class="kbtn key" data-value="ج">ج</div>
+			<div class="kbtn key" data-value="چ">چ</div>
 		</div>
 
 		<div class="row">
-			<div class="key">ش</div>
-			<div class="key">س</div>
-			<div class="key">ی</div>
-			<div class="key">ئ</div>
-			<div class="key">ؽ</div>
-			<div class="key">ب</div>
-			<div class="key">ل</div>
-			<div class="key">ا</div>
-			<div class="key">آ</div>
-			<div class="key">ت</div>
-			<div class="key">ن</div>
-			<div class="key">م</div>
-			<div class="key">ک</div>
-			<div class="key">گ</div>
+			<div class="kbtn key" data-value="ش">ش</div>
+			<div class="kbtn key" data-value="س">س</div>
+			<div class="kbtn has-more">ی
+				<div class="more v3">
+					<div class="kbtn key" data-value="ی">ی</div>
+					<div class="kbtn key" data-value="ئ">ئ</div>
+					<div class="kbtn key" data-value="ؽ">ؽ</div>
+				</div>
+			</div>
+			<div class="kbtn key" data-value="ب">ب</div>
+			<div class="kbtn key" data-value="ل">ل</div>
+			<div class="kbtn has-more">ا
+				<div class="more">
+					<div class="kbtn key" data-value="ا">ا</div>
+					<div class="kbtn key" data-value="آ">آ</div>
+				</div>
+			</div>
+			<div class="kbtn key" data-value="ت">ت</div>
+			<div class="kbtn key" data-value="ن">ن</div>
+			<div class="kbtn key" data-value="م">م</div>
+			<div class="kbtn key" data-value="ک">ک</div>
+			<div class="kbtn key" data-value="گ">گ</div>
 		</div>
 
 		<div class="row">
-			<div class="key">ظ</div>
-			<div class="key">ط</div>
-			<div class="key">ژ</div>
-			<div class="key">ز</div>
-			<div class="key">ر</div>
-			<div class="key">ذ</div>
-			<div class="key">د</div>
-			<div class="key">و</div>
-			<div class="key">ؤ</div>
-			<div class="key">وْ</div>
-			<div class="key">ۇ</div>
-			<div class="key">ۆ</div>
-			<div class="key">پ</div>
+			<div class="kbtn key" data-value="ظ">ظ</div>
+			<div class="kbtn key" data-value="ط">ط</div>
+			<div class="kbtn has-more">ز
+				<div class="more z-more">
+					<div class="kbtn key" data-value="ز">ز</div>
+					<div class="kbtn key" data-value="ژ">ژ</div>
+				</div>
+			</div>
+			<div class="kbtn key" data-value="ر">ر</div>
+			<div class="kbtn key" data-value="ذ">ذ</div>
+			<div class="kbtn key" data-value="د">د</div>
+			<div class="kbtn has-more">و
+				<div class="more v4">
+					<div class="kbtn key" data-value="و">و</div>
+					<div class="kbtn key" data-value="ؤ">ؤ</div>
+					<div class="kbtn key" data-value="وْ">وْ</div>
+					<div class="kbtn key" data-value="ۇ">ۇ</div>
+					<div class="kbtn key" data-value="ۆ">ۆ</div>
+				</div>
+
+			</div>
+			<div class="kbtn key" data-value="پ">پ</div>
 		</div>
 
 		<div class="row">
-			<div class="key">!</div>
-			<div class="key">؟</div>
-			<div class="key">،</div>
-			<div class="key">؛</div>
-			<div class="key">-</div>
-			<div class="key">ـ</div>
-			<div class="key">_</div>
-			<div class="key">:</div>
-			<div class="key">.</div>
-			<div class="key">/</div>
+			<div class="kbtn key" data-value="!">!</div>
+			<div class="kbtn key" data-value="؟">؟</div>
+			<div class="kbtn key" data-value="،">،</div>
+			<div class="kbtn key" data-value="؛">؛</div>
+			<div class="kbtn key" data-value="-">-</div>
+			<div class="kbtn key" data-value="ـ">ـ</div>
+			<div class="kbtn key" data-value="_">_</div>
+			<div class="kbtn key" data-value=":">:</div>
+			<div class="kbtn key" data-value=".">.</div>
+			<div class="kbtn key" data-value="/">/</div>
 		</div>
 
-		<div class="row"><div class="actionkey" id="virtualspace" onclick="addvspace()">|<small>سانال بوْشلۇق</small></div>
-			<div class="actionkey" id="space" onclick="addspace()">بوْشلۇق</div>
-			<div class="actionkey" onclick="addNewLine()">↵<small>Enter</small></div>
-			<div class="actionkey" onclick="backspace()">←<small>Backspace</small></div>
+		<div class="row">
+			<div class="kbtn" id="virtualspace" onclick="addvspace()">|<small>سانال بوْشلۇق</small></div>
+			<div class="kbtn" id="space" onclick="addspace()">بوْشلۇق</div>
+			<div class="kbtn" onclick="backspace()">←<small>Backspace</small></div>
+			<div class="kbtn" onclick="addNewLine()">↵<small>Enter</small></div>
 		</div>
 	</div>
 
 	<footer>
-		<a href="https://arazgholami.github.io/turkcekeyboard/" draggable="true">تۆرکجه کیبوْرد</a>
-		| v2.1 | <a href="https://github.com/arazgholami/turkcekeyboard">GitHub</a> |
+		<a href="https://arazgholami.github.io/turkcekeyboard/">قدیم نۆسخه</a> |
+		<a href="https://arazgholami.github.io/turkcekeyboard/" draggable="true">تۆرکجه کیبوْرد</a> |
+		v3.0 | <a href="https://github.com/arazgholami/turkcekeyboard">GitHub</a> |
 		Made with ❤️ by <a href="https://arazgholami.com">Araz Gholami</a>
 	</footer>
 
 	<script>
 		const textbox = document.getElementById('textbox');
 		const keys = document.querySelectorAll('.key');
+		const moreKeys = document.querySelectorAll('.has-more');
+		const moreElements = document.querySelectorAll('.more');
+		const copyButton = document.querySelector('button[data-action="copy"]');
+
+		function insertCharacter(character) {
+			let cursorPosition = textbox.selectionStart;
+			let textBeforeCursor = textbox.value.substring(0, cursorPosition);
+			let textAfterCursor = textbox.value.substring(cursorPosition);
+			textbox.value = textBeforeCursor + character + textAfterCursor;
+			textbox.focus();
+
+			if (character == 'وْ') {
+				textbox.setSelectionRange(cursorPosition + 2, cursorPosition + 2);
+			} else {
+				textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+			}
+
+			if (navigator.vibrate || navigator.webkitVibrate) {
+				(navigator.vibrate || navigator.webkitVibrate).call(navigator, 500);
+			}
+		}
 
 		keys.forEach(key => {
 			key.addEventListener('click', () => {
-				const character = key.textContent;
-
-				let cursorPosition = textbox.selectionStart;
-				let textBeforeCursor = textbox.value.substring(0, cursorPosition);
-				let textAfterCursor = textbox.value.substring(cursorPosition);
-				let lastChar = textBeforeCursor.slice(-2);
-				textbox.value = textBeforeCursor + character + textAfterCursor;
-				textbox.focus();
-
-				if (character == 'وْ') {
-					textbox.setSelectionRange(cursorPosition + 2, cursorPosition + 2);
-				} else {
-					textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
-				}
-
+				const character = key.dataset.value;
+				insertCharacter(character);
 			});
 		});
 
+		moreKeys.forEach(moreKey => {
+			const moreElement = moreKey.querySelector('.more');
+			moreKey.addEventListener('click', event => {
+				moreElement.classList.toggle('show');
+				event.stopPropagation();
+			});
+
+			moreElement.addEventListener('click', event => {
+				moreElement.classList.remove('show');
+				event.stopPropagation();
+			});
+		});
+
+		document.addEventListener('click', () => {
+			moreElements.forEach(moreElement => {
+				moreElement.classList.remove('show');
+			});
+		});
+
+		function onLongPress(element, callback) {
+			let timer;
+			let isMousePressed = false;
+
+			element.addEventListener('mousedown', () => {
+				isMousePressed = true;
+				timer = setTimeout(() => {
+					if (isMousePressed) {
+						timer = null;
+						callback();
+					}
+				}, 500);
+			});
+
+			function cancel() {
+				clearTimeout(timer);
+				isMousePressed = false;
+			}
+
+			element.addEventListener('mouseup', cancel);
+			element.addEventListener('mouseleave', cancel);
+
+			element.addEventListener('touchstart', () => {
+				timer = setTimeout(() => {
+					timer = null;
+					callback();
+				}, 500);
+			});
+
+			element.addEventListener('touchend', cancel);
+			element.addEventListener('touchmove', cancel);
+		}
+
 		function addspace() {
 			const character = ' ';
-			const cursorPosition = textbox.selectionStart;
-			const textBeforeCursor = textbox.value.substring(0, cursorPosition);
-			const textAfterCursor = textbox.value.substring(cursorPosition);
-			textbox.value = textBeforeCursor + character + textAfterCursor;
-			textbox.focus();
-			textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+			insertCharacter(character);
 		}
 
 		function addvspace() {
 			const character = '‌';
-			const cursorPosition = textbox.selectionStart;
-			const textBeforeCursor = textbox.value.substring(0, cursorPosition);
-			const textAfterCursor = textbox.value.substring(cursorPosition);
-			textbox.value = textBeforeCursor + character + textAfterCursor;
-			textbox.focus();
-			textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+			insertCharacter(character);
 		}
 
 		function addNewLine() {
-			const cursorPosition = textbox.selectionStart;
-			const textBeforeCursor = textbox.value.substring(0, cursorPosition);
-			const textAfterCursor = textbox.value.substring(cursorPosition);
-			textbox.value = textBeforeCursor + '\n' + textAfterCursor;
-			textbox.focus();
-			textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+			const character = '\n';
+			insertCharacter(character);
 		}
 
 		function backspace() {
@@ -285,12 +360,12 @@
 			textbox.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
 		}
 
-		const copyButton = document.querySelector('button[data-action="copy"]');
 		copyButton.addEventListener('click', () => {
 			textbox.select();
 			document.execCommand('copy');
 		});
 	</script>
+
 </body>
 
 </html>

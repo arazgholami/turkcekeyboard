@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/svg+xml"
+		href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABXklEQVR4nO2YvUoDURBGj9pY+QAmikgUQbG3sLD3BcRaLK3t9BksfACx0BAbY69PIJaClbV/CWIljCzMDUvAH8Ka7JfMgYHdy8LOYWbvXQaC4DfGgXlgDnGqgAGPiLPiIneIs+UiF4hz6iJ7CLMOfAIfwDSC1IAD4N2rcYgAS8AOcARcA6+efIpjYIwSswzcdCWd4gVoABuUnDWg7Um/AefAPrAJzCLCJPDgEifAFKJsu8QtMIEwdRfZRZx7F1nt149aPfdBKkTbd7qFvMRzCRLrNbLcK/kevkwLIlSApud+Rq6dlCQSM7mzqVMiVSzlP9Qi1hVlXc8IEYuKDKC1lLCRELEf4rtn/nvditi1QoSoCIW0lhI2EiJW4A7zl+j1vRkhYlER+t9aStjQibT8IhsLSQ8fGn7TFJOpAleeezbSYhF4KuAsGOSArpbsKj7kSm2mEC2vREciCIIAGb4ABGasTx8WH2oAAAAASUVORK5CYII=">
+	<title>تۆرکجه کیبوْرد</title>
+	<style>
+		body {
+			width: calc(100% - 20px);
+		}
+
+		h1 {
+			position: absolute;
+			top: -10px;
+			right: 20px;
+			font-size: 20px;
+		}
+
+		.actions {
+			padding: 0;
+			list-style: none;
+			margin: 0 0 5px 0;
+		}
+
+		.actions li {
+			display: inline-block;
+		}
+
+		.actions li button {
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			cursor: pointer;
+			padding: 5px;
+			max-height: 30px;
+			vertical-align: middle;
+			background: white;
+			color: black;
+		}
+
+
+		#textbox {
+			width: calc(100% - 20px);
+			padding: 10px;
+			margin-top: 20px;
+			border: 1px solid black;
+			border-radius: 5px;
+			direction: rtl;
+			height: 160px;
+			display: block;
+			margin-bottom: 5px;
+			resize: vertical;
+			font-size: 24px;
+		}
+
+		#textbox:focus {
+			outline: none;
+		}
+
+		#keyboard {
+			width: calc(100% - 20px);
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 10px;
+			display: block;
+			font-size: 20px;
+		}
+
+		.row {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 5px;
+		}
+
+		.key {
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			cursor: pointer;
+			display: inline-block;
+			padding: 0 0 5px;
+			max-height: 30px;
+			vertical-align: middle;
+			transition: background 0.3s;
+			width: 100%;
+			text-align: center;
+			margin-right: 2px;
+		}
+
+		@media screen and (max-width: 380px) {
+			#textbox {
+				font-size: 16px;
+			}
+			.key,.actionkey {
+				font-size: 14px;
+			}
+			
+		}
+
+		#space {
+			flex: 1 1 200%;
+		}
+
+		.actionkey {
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			cursor: pointer;
+			display: inline-block;
+			max-height: 30px;
+			vertical-align: middle;
+			transition: background 0.3s;
+			width: 100%;
+			text-align: center;			
+			padding: 0 0 5px;
+			margin-right: 2px;
+
+		}
+
+		.actionkey:active,
+		.key:active {
+			background: lightgray;
+		}
+
+		small {
+			color: gray;
+			font-size: 8px;
+			display: block;
+		}
+
+		footer {
+			color: gray !important;
+			text-align: center;
+			font-size: 10px;
+			padding-top: 10px;
+		}
+
+		footer a {
+			color: gray !important;
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>تۆرکجه کیبوْرد</h1>
+	<ul class="actions">
+		<li><button data-action="copy">Copy</button></li>
+	</ul>
+	<textarea id="textbox"></textarea>
+	<div id="keyboard">
+		<div class="row">
+			<div class="key">ض</div>
+			<div class="key">ص</div>
+			<div class="key">ث</div>
+			<div class="key">ق</div>
+			<div class="key">ف</div>
+			<div class="key">غ</div>
+			<div class="key">ع</div>
+			<div class="key">ه</div>
+			<div class="key">خ</div>
+			<div class="key">ح</div>
+			<div class="key">ج</div>
+			<div class="key">چ</div>
+		</div>
+
+		<div class="row">
+			<div class="key">ش</div>
+			<div class="key">س</div>
+			<div class="key">ی</div>
+			<div class="key">ئ</div>
+			<div class="key">ؽ</div>
+			<div class="key">ب</div>
+			<div class="key">ل</div>
+			<div class="key">ا</div>
+			<div class="key">آ</div>
+			<div class="key">ت</div>
+			<div class="key">ن</div>
+			<div class="key">م</div>
+			<div class="key">ک</div>
+			<div class="key">گ</div>
+		</div>
+
+		<div class="row">
+			<div class="key">ظ</div>
+			<div class="key">ط</div>
+			<div class="key">ژ</div>
+			<div class="key">ز</div>
+			<div class="key">ر</div>
+			<div class="key">ذ</div>
+			<div class="key">د</div>
+			<div class="key">و</div>
+			<div class="key">ؤ</div>
+			<div class="key">وْ</div>
+			<div class="key">ۇ</div>
+			<div class="key">ۆ</div>
+			<div class="key">پ</div>
+		</div>
+
+		<div class="row">
+			<div class="key">!</div>
+			<div class="key">؟</div>
+			<div class="key">،</div>
+			<div class="key">؛</div>
+			<div class="key">-</div>
+			<div class="key">ـ</div>
+			<div class="key">_</div>
+			<div class="key">:</div>
+			<div class="key">.</div>
+			<div class="key">/</div>
+		</div>
+
+		<div class="row"><div class="actionkey" id="virtualspace" onclick="addvspace()">|<small>سانال بوْشلۇق</small></div>
+			<div class="actionkey" id="space" onclick="addspace()">بوْشلۇق</div>
+			<div class="actionkey" onclick="addNewLine()">↵<small>Enter</small></div>
+			<div class="actionkey" onclick="backspace()">←<small>Backspace</small></div>
+		</div>
+	</div>
+
+	<footer>
+		<a href="https://arazgholami.github.io/turkcekeyboard/" draggable="true">تۆرکجه کیبوْرد</a>
+		| v2.1 | <a href="https://github.com/arazgholami/turkcekeyboard">GitHub</a> |
+		Made with ❤️ by <a href="https://arazgholami.com">Araz Gholami</a>
+	</footer>
+
+	<script>
+		const textbox = document.getElementById('textbox');
+		const keys = document.querySelectorAll('.key');
+
+		keys.forEach(key => {
+			key.addEventListener('click', () => {
+				const character = key.textContent;
+
+				let cursorPosition = textbox.selectionStart;
+				let textBeforeCursor = textbox.value.substring(0, cursorPosition);
+				let textAfterCursor = textbox.value.substring(cursorPosition);
+				let lastChar = textBeforeCursor.slice(-2);
+				textbox.value = textBeforeCursor + character + textAfterCursor;
+				textbox.focus();
+
+				if (character == 'وْ') {
+					textbox.setSelectionRange(cursorPosition + 2, cursorPosition + 2);
+				} else {
+					textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+				}
+
+			});
+		});
+
+		function addspace() {
+			const character = ' ';
+			const cursorPosition = textbox.selectionStart;
+			const textBeforeCursor = textbox.value.substring(0, cursorPosition);
+			const textAfterCursor = textbox.value.substring(cursorPosition);
+			textbox.value = textBeforeCursor + character + textAfterCursor;
+			textbox.focus();
+			textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+		}
+
+		function addvspace() {
+			const character = '‌';
+			const cursorPosition = textbox.selectionStart;
+			const textBeforeCursor = textbox.value.substring(0, cursorPosition);
+			const textAfterCursor = textbox.value.substring(cursorPosition);
+			textbox.value = textBeforeCursor + character + textAfterCursor;
+			textbox.focus();
+			textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+		}
+
+		function addNewLine() {
+			const cursorPosition = textbox.selectionStart;
+			const textBeforeCursor = textbox.value.substring(0, cursorPosition);
+			const textAfterCursor = textbox.value.substring(cursorPosition);
+			textbox.value = textBeforeCursor + '\n' + textAfterCursor;
+			textbox.focus();
+			textbox.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+		}
+
+		function backspace() {
+			const cursorPosition = textbox.selectionStart;
+			const textBeforeCursor = textbox.value.substring(0, cursorPosition - 1);
+			const textAfterCursor = textbox.value.substring(cursorPosition);
+			textbox.value = textBeforeCursor + textAfterCursor;
+			textbox.focus();
+			textbox.setSelectionRange(cursorPosition - 1, cursorPosition - 1);
+		}
+
+		const copyButton = document.querySelector('button[data-action="copy"]');
+		copyButton.addEventListener('click', () => {
+			textbox.select();
+			document.execCommand('copy');
+		});
+	</script>
+</body>
+
+</html>

@@ -17,7 +17,7 @@
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
-            min-height: calc(100vh - 100px);
+            min-height: calc(100vh - 80px);
             background-color: #f2f2f7;
         }
         #title {
@@ -41,6 +41,8 @@
             border-radius: 10px;
             background-color: #ffffff;
             outline: none;
+            direction: rtl;
+            text-align: right;
         }
         #copy-button {
             position: absolute;
@@ -62,7 +64,7 @@
         #keyboard {
             width: 100%;
             background-color: #d1d5db;
-            padding: 10px 3px;
+            padding: 3px;
             user-select: none;
         }
         .row {
@@ -87,6 +89,14 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .key sup {
+                position: absolute;
+                top: 0;
+                left: 7px;
+                font-size: 14px;
+                color: gray;
         }
         .key:active {
             background-color: #e0e0e0;
@@ -152,14 +162,14 @@
         <div class="row">
             <button class="key" data-char="ش">ش</button>
             <button class="key" data-char="س">س</button>
-            <button class="key" data-char="ی">ی</button>
+            <button class="key" data-char="ی">ی<sup>ؽ</sup></button>
             <button class="key" data-char="ب">ب</button>
             <button class="key" data-char="ل">ل</button>
-            <button class="key" data-char="ا">ا</button>
+            <button class="key" data-char="ا">ا<sup>آ</sup></button>
             <button class="key" data-char="ت">ت</button>
             <button class="key" data-char="ن">ن</button>
             <button class="key" data-char="م">م</button>
-            <button class="key" data-char="ک">ک</button>
+            <button class="key" data-char="ک">ک<sup>ݣ</sup></button>
             <button class="key" data-char="گ">گ</button>
         </div>
         <div class="row">
@@ -171,7 +181,7 @@
             <button class="key" data-char="ذ">ذ</button>
             <button class="key" data-char="د">د</button>
             <button class="key" data-char="پ">پ</button>
-            <button class="key" data-char="و">و</button>
+            <button class="key" data-char="و">و<sup>ۆ</sup></button>
             <button class="key" data-char="ث">ث</button>
 
 
@@ -236,10 +246,15 @@
                 top = rect.bottom + window.scrollY;
             }
 
+            if (target.getAttribute('data-char') == '!' || target.getAttribute('data-char') == 'َ') {
+                left = '';
+            }
+
             popup.style.left = `${left}px`;
             popup.style.top = `${top}px`;
             popup.innerHTML = chars.map(char => `<button class="popup-key">${char}</button>`).join('');
             popup.style.display = 'flex';
+            
         }
 
         function hidePopup() {

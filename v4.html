@@ -17,7 +17,7 @@
             flex-direction: column;
             justify-content: flex-end;
             align-items: center;
-            min-height: 100vh;
+            min-height: calc(100vh - 100px);
             background-color: #f2f2f7;
         }
         #title {
@@ -139,7 +139,6 @@
         <div class="row">
             <button class="key" data-char="ض">ض</button>
             <button class="key" data-char="ص">ص</button>
-            <button class="key" data-char="ث">ث</button>
             <button class="key" data-char="ق">ق</button>
             <button class="key" data-char="ف">ف</button>
             <button class="key" data-char="غ">غ</button>
@@ -161,6 +160,7 @@
             <button class="key" data-char="ن">ن</button>
             <button class="key" data-char="م">م</button>
             <button class="key" data-char="ک">ک</button>
+            <button class="key" data-char="گ">گ</button>
         </div>
         <div class="row">
             <button class="key" data-char="ظ">ظ</button>
@@ -170,23 +170,19 @@
             <button class="key" data-char="ر">ر</button>
             <button class="key" data-char="ذ">ذ</button>
             <button class="key" data-char="د">د</button>
-            <button class="key" data-char="و">و</button>
             <button class="key" data-char="پ">پ</button>
-            <button class="key" data-char="گ">گ</button>
+            <button class="key" data-char="و">و</button>
+            <button class="key" data-char="ث">ث</button>
+
 
             <button class="key wide" id="backspace">⌫</button>
         </div>
         <div class="row">
             <button class="key wide" data-char="‌">سانال بوْشلوق</button>
-            <button class="key" data-char="," data-alt="!">
-                <span class="base">,</span>
-                <span class="shift">!</span>
-            </button>
             <button class="key space" data-char=" ">بوْشلوق</button>
-            <button class="key" data-char="." data-alt="?">
-                <span class="base">.</span>
-                <span class="shift">?</span>
-            </button>
+
+            <button class="key" data-char="!">!؟</button>
+            <button class="key" data-char="َ">ــَـ</button>
             <button class="key wide" id="return">↵</button>
         </div>
     </div>
@@ -211,6 +207,8 @@
             'ی': ['ئ', 'ؽ'],
             'ک': ['ݣ'],
             'و': ['ؤ', 'وْ', 'ۇ', 'ۆ'],
+            '!': ['!','؟','٪','+','-','_','؛',':','،','.','/'],
+            'َ': ['َ','ِ','ُ','ـ'],
         };
 
         function updateKeyboardCase() {

@@ -131,6 +131,10 @@
         .popup-key:active {
             background-color: #e0e0e0;
         }
+        .small-text {
+            font-size: 16px;
+            color: gray;
+        }
     </style>
 </head>
 <body>
@@ -188,10 +192,9 @@
             <button class="key wide" id="backspace">⌫</button>
         </div>
         <div class="row">
-            <button class="key wide" data-char="‌">|</button>
-            <button class="key space" data-char=" ">بوْشلوق</button>
-
             <button class="key" data-char="!">!؟</button>
+            <button class="key small-text" data-char="‌">|</button>
+            <button class="key space small-text" data-char=" ">بوْشلوق</button>
             <button class="key" data-char="َ">ــَـ</button>
             <button class="key wide" id="return">↵</button>
         </div>
@@ -215,8 +218,8 @@
             'ی': ['ئ', 'ؽ'],
             'ک': ['ݣ'],
             'و': ['ؤ', 'وْ', 'ۇ', 'ۆ'],
-            '!': ['!','؟','٪','+','-','_','؛',':','،','.','/'],
-            'َ': ['َ','ِ','ُ','ـ'],
+            '!': ['!','؟','٪','_','؛',':','،','.','/','ـ'],
+            'َ': ['َ','ِ','ُ'],
         };
 
         function handleKeyPress(char) {
@@ -244,10 +247,6 @@
             // Adjust vertical position if it would go above the screen
             if (top < 0) {
                 top = rect.bottom + window.scrollY;
-            }
-
-            if (target.getAttribute('data-char') == '!' || target.getAttribute('data-char') == 'َ') {
-                left = '';
             }
 
             popup.style.left = `${left}px`;

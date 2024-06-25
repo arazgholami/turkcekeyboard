@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Turkish iOS-style Virtual Keyboard</title>
+    <title>تۆرکجه کیبوْرد</title>
     <style>
         * {
             box-sizing: border-box;
@@ -124,7 +124,7 @@
     </style>
 </head>
 <body>
-    <div id="title">Turkish Keyboard</div>
+    <div id="title">تۆرکجه کیبوْرد</div>
     <div id="input-container">
         <textarea id="input" rows="4" readonly></textarea>
         <button id="copy-button">
@@ -137,51 +137,57 @@
     </div>
     <div id="keyboard">
         <div class="row">
-            <button class="key" data-char="q">q</button>
-            <button class="key" data-char="w">w</button>
-            <button class="key" data-char="e">e</button>
-            <button class="key" data-char="r">r</button>
-            <button class="key" data-char="t">t</button>
-            <button class="key" data-char="y">y</button>
-            <button class="key" data-char="u">u</button>
-            <button class="key" data-char="i">i</button>
-            <button class="key" data-char="o">o</button>
-            <button class="key" data-char="p">p</button>
+            <button class="key" data-char="ض">ض</button>
+            <button class="key" data-char="ص">ص</button>
+            <button class="key" data-char="ث">ث</button>
+            <button class="key" data-char="ق">ق</button>
+            <button class="key" data-char="ف">ف</button>
+            <button class="key" data-char="غ">غ</button>
+            <button class="key" data-char="ع">ع</button>
+            <button class="key" data-char="ه">ه</button>
+            <button class="key" data-char="خ">خ</button>
+            <button class="key" data-char="ح">ح</button>
+            <button class="key" data-char="ج">ج</button>
+            <button class="key" data-char="چ">چ</button>
         </div>
         <div class="row">
-            <button class="key" data-char="a">a</button>
-            <button class="key" data-char="s">s</button>
-            <button class="key" data-char="d">d</button>
-            <button class="key" data-char="f">f</button>
-            <button class="key" data-char="g">g</button>
-            <button class="key" data-char="h">h</button>
-            <button class="key" data-char="j">j</button>
-            <button class="key" data-char="k">k</button>
-            <button class="key" data-char="l">l</button>
+            <button class="key" data-char="ش">ش</button>
+            <button class="key" data-char="س">س</button>
+            <button class="key" data-char="ی">ی</button>
+            <button class="key" data-char="ب">ب</button>
+            <button class="key" data-char="ل">ل</button>
+            <button class="key" data-char="ا">ا</button>
+            <button class="key" data-char="ت">ت</button>
+            <button class="key" data-char="ن">ن</button>
+            <button class="key" data-char="م">م</button>
+            <button class="key" data-char="ک">ک</button>
         </div>
         <div class="row">
-            <button class="key wide" id="shift">⇧</button>
-            <button class="key" data-char="z">z</button>
-            <button class="key" data-char="x">x</button>
-            <button class="key" data-char="c">c</button>
-            <button class="key" data-char="v">v</button>
-            <button class="key" data-char="b">b</button>
-            <button class="key" data-char="n">n</button>
-            <button class="key" data-char="m">m</button>
+            <button class="key" data-char="ظ">ظ</button>
+            <button class="key" data-char="ط">ط</button>
+            <button class="key" data-char="ژ">ژ</button>
+            <button class="key" data-char="ز">ز</button>
+            <button class="key" data-char="ر">ر</button>
+            <button class="key" data-char="ذ">ذ</button>
+            <button class="key" data-char="د">د</button>
+            <button class="key" data-char="و">و</button>
+            <button class="key" data-char="پ">پ</button>
+            <button class="key" data-char="گ">گ</button>
+
             <button class="key wide" id="backspace">⌫</button>
         </div>
         <div class="row">
-            <button class="key wide" data-char="123">123</button>
+            <button class="key wide" data-char="‌">سانال بوْشلوق</button>
             <button class="key" data-char="," data-alt="!">
                 <span class="base">,</span>
                 <span class="shift">!</span>
             </button>
-            <button class="key space" data-char=" ">space</button>
+            <button class="key space" data-char=" ">بوْشلوق</button>
             <button class="key" data-char="." data-alt="?">
                 <span class="base">.</span>
                 <span class="shift">?</span>
             </button>
-            <button class="key wide" id="return">return</button>
+            <button class="key wide" id="return">↵</button>
         </div>
     </div>
     <div class="popup" id="popup"></div>
@@ -201,17 +207,10 @@
         const longPressDuration = 500;
 
         const specialChars = {
-            'e': ['é', 'è', 'ê', 'ë'],
-            'y': ['ý', 'ÿ'],
-            'u': ['ú', 'ù', 'û', 'ü'],
-            'i': ['í', 'ì', 'î', 'ï'],
-            'o': ['ó', 'ò', 'ô', 'ö'],
-            'a': ['á', 'à', 'â', 'ä'],
-            's': ['ß'],
-            'd': ['ð'],
-            'l': ['ł'],
-            'c': ['ç'],
-            'n': ['ñ'],
+            'ا': ['آ'],
+            'ی': ['ئ', 'ؽ'],
+            'ک': ['ݣ'],
+            'و': ['ؤ', 'وْ', 'ۇ', 'ۆ'],
         };
 
         function updateKeyboardCase() {

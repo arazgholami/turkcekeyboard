@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Keyboard</title>
+<style>
+  body { font-family: Arial, sans-serif; }
+  #keyboard { display: none; position: fixed; bottom: 0; width: 100%; background: #f4f4f4; padding: 5px 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
+  .row { display: flex; justify-content: center; margin-bottom: 5px; }
+  .key { background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin: 0 3px; text-align: center; cursor: pointer; user-select: none; }
+  .key.special { background: #ddd; }
+  .key.active { background: #007bff; color: #fff; }
+</style>
+</head>
+<body>
+<input type="text" id="inputField" placeholder="Type here..." style="width: 90%; padding: 10px; margin: 20px auto; display: block;">
+<div id="keyboard">
+  <div class="row">
+    <div class="key" data-key="1">1</div>
+    <div class="key" data-key="2">2</div>
+    <div class="key" data-key="3">3</div>
+    <!-- Add all keys from 1 to 0 -->
+  </div>
+  <div class="row">
+    <div class="key" data-key="q">q</div>
+    <div class="key" data-key="w">w</div>
+    <div class="key" data-key="e">e</div>
+    <!-- Add all keys from q to p -->
+  </div>
+  <div class="row">
+    <div class="key" data-key="a">a</div>
+    <div class="key" data-key="s">s</div>
+    <div class="key" data-key="d">d</div>
+    <!-- Add all keys from a to l -->
+  </div>
+  <div class="row">
+    <div class="key" data-key="z">z</div>
+    <div class="key" data-key="x">x</div>
+    <div class="key" data-key="c">c</div>
+    <!-- Add all keys from z to m -->
+  </div>
+  <div class="row">
+    <div class="key special" data-key="shift">⇧</div>
+    <div class="key" data-key=" "> </div>
+    <div class="key special" data-key="delete">⌫</div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#inputField').focus(function() {
+      $('#keyboard').show();
+    });
+
+    $('.key').click(function() {
+      var key = $(this).data('key');
+      var inputField = $('#inputField');
+
+      if (key === 'delete') {
+        inputField.val(inputField.val().slice(0, -1));
+      } else if (key === 'shift') {
+        // Toggle shift state
+      } else {
+        inputField.val(inputField.val() + key);
+      }
+    });
+
+    // Press and hold functionality
+    var holdTimer;
+    $('.key').mousedown(function() {
+      holdTimer = setTimeout(() => {
+        // Handle press and hold action
+      }, 500);
+    }).mouseup(function() {
+      clearTimeout(holdTimer);
+    });
+  });
+</script>
+</body>
+</html>

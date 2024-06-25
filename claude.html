@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Keyboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #keyboard {
+            width: 100%;
+            max-width: 600px;
+            background-color: #d1d5db;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .key {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            color: #000000;
+            font-size: 18px;
+            padding: 10px;
+            margin: 2px;
+            min-width: 30px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+        .key:active {
+            background-color: #e0e0e0;
+        }
+        .wide {
+            flex-grow: 1;
+        }
+        .space {
+            flex-grow: 4;
+        }
+        #input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .popup {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            padding: 5px;
+        }
+        .popup-key {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="keyboard">
+        <input type="text" id="input" readonly>
+        <div class="row">
+            <button class="key" data-char="q">q</button>
+            <button class="key" data-char="w">w</button>
+            <button class="key" data-char="e">e</button>
+            <button class="key" data-char="r">r</button>
+            <button class="key" data-char="t">t</button>
+            <button class="key" data-char="y">y</button>
+            <button class="key" data-char="u">u</button>
+            <button class="key" data-char="i">i</button>
+            <button class="key" data-char="o">o</button>
+            <button class="key" data-char="p">p</button>
+        </div>
+        <div class="row">
+            <button class="key" data-char="a">a</button>
+            <button class="key" data-char="s">s</button>
+            <button class="key" data-char="d">d</button>
+            <button class="key" data-char="f">f</button>
+            <button class="key" data-char="g">g</button>
+            <button class="key" data-char="h">h</button>
+            <button class="key" data-char="j">j</button>
+            <button class="key" data-char="k">k</button>
+            <button class="key" data-char="l">l</button>
+        </div>
+        <div class="row">
+            <button class="key wide" id="shift">⇧</button>
+            <button class="key" data-char="z">z</button>
+            <button class="key" data-char="x">x</button>
+            <button class="key" data-char="c">c</button>
+            <button class="key" data-char="v">v</button>
+            <button class="key" data-char="b">b</button>
+            <button class="key" data-char="n">n</button>
+            <button class="key" data-char="m">m</button>
+            <button class="key wide" id="backspace">⌫</button>
+        </div>
+        <div class="row">
+            <button class="key wide" data-char="123">123</button>
+            <button class="key" data-char="," data-alt="!">
+                <span class="base">,</span>
+                <span class="shift">!</span>
+            </button>
+            <button class="key space" data-char=" "> </button>
+            <button class="key" data-char="." data-alt="?">
+                <span class="base">.</span>
+                <span class="shift">?</span>
+            </button>
+            <button class="key wide" id="return">return</button>
+        </div>
+    </div>
+    <div class="popup" id="popup"></div>
+
+    <script>
+        const input = document.getElementById('input');
+        const keyboard = document.getElementById('keyboard');
+        const shift = document.getElementById('shift');
+        const backspace = document.getElementById('backspace');
+        const returnKey = document.getElementById('return');
+        const popup = document.getElementById('popup');
+
+        let isShiftActive = false;
+        let longPressTimer;
+        const longPressDuration = 500;
+
+        const specialChars = {
+            'e': ['é', 'è', 'ê', 'ë'],
+            'y': ['ý', 'ÿ'],
+            'u': ['ú', 'ù', 'û', 'ü'],
+            'i': ['í', 'ì', 'î', 'ï'],
+            'o': ['ó', 'ò', 'ô', 'ö'],
+            'a': ['á', 'à', 'â', 'ä'],
+            's': ['ß'],
+            'd': ['ð'],
+            'l': ['ł'],
+            'c': ['ç'],
+            'n': ['ñ'],
+        };
+
+        function updateKeyboardCase() {
+            const keys = keyboard.querySelectorAll('.key[data-char]');
+            keys.forEach(key => {
+                const char = key.getAttribute('data-char');
+                if (char.length === 1) {
+                    key.textContent = isShiftActive ? char.toUpperCase() : char.toLowerCase();
+                }
+            });
+
+            const altKeys = keyboard.querySelectorAll('.key[data-alt]');
+            altKeys.forEach(key => {
+                const base = key.querySelector('.base');
+                const shift = key.querySelector('.shift');
+                if (base && shift) {
+                    base.style.display = isShiftActive ? 'none' : 'inline';
+                    shift.style.display = isShiftActive ? 'inline' : 'none';
+                }
+            });
+        }
+
+        function handleKeyPress(char) {
+            const cursorPos = input.selectionStart;
+            const textBefore = input.value.substring(0, cursorPos);
+            const textAfter = input.value.substring(cursorPos);
+            
+            if (isShiftActive) {
+                char = char.toUpperCase();
+                isShiftActive = false;
+                updateKeyboardCase();
+            }
+            
+            input.value = textBefore + char + textAfter;
+            input.setSelectionRange(cursorPos + 1, cursorPos + 1);
+            input.focus();
+        }
+
+        function showPopup(target, chars) {
+            const rect = target.getBoundingClientRect();
+            popup.style.left = `${rect.left}px`;
+            popup.style.top = `${rect.top - 40}px`;
+            popup.innerHTML = chars.map(char => `<span class="popup-key">${char}</span>`).join('');
+            popup.style.display = 'block';
+        }
+
+        function hidePopup() {
+            popup.style.display = 'none';
+        }
+
+        keyboard.addEventListener('mousedown', (e) => {
+            if (e.target.classList.contains('key')) {
+                const char = e.target.getAttribute('data-char');
+                if (char) {
+                    if (specialChars[char]) {
+                        longPressTimer = setTimeout(() => {
+                            showPopup(e.target, specialChars[char]);
+                        }, longPressDuration);
+                    }
+                    handleKeyPress(char);
+                }
+            }
+        });
+
+        keyboard.addEventListener('mouseup', () => {
+            clearTimeout(longPressTimer);
+            hidePopup();
+        });
+
+        keyboard.addEventListener('mouseleave', () => {
+            clearTimeout(longPressTimer);
+            hidePopup();
+        });
+
+        popup.addEventListener('click', (e) => {
+            if (e.target.classList.contains('popup-key')) {
+                handleKeyPress(e.target.textContent);
+                hidePopup();
+            }
+        });
+
+        shift.addEventListener('click', () => {
+            isShiftActive = !isShiftActive;
+            updateKeyboardCase();
+        });
+
+        backspace.addEventListener('click', () => {
+            const cursorPos = input.selectionStart;
+            if (cursorPos > 0) {
+                const textBefore = input.value.substring(0, cursorPos - 1);
+                const textAfter = input.value.substring(cursorPos);
+                input.value = textBefore + textAfter;
+                input.setSelectionRange(cursorPos - 1, cursorPos - 1);
+            }
+            input.focus();
+        });
+
+        returnKey.addEventListener('click', () => {
+            handleKeyPress('\n');
+        });
+
+        updateKeyboardCase();
+    </script>
+</body>
+</html>

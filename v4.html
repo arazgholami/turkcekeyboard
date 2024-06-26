@@ -31,7 +31,7 @@
             position: absolute;
             width: 100%;
             padding: 0 3px;
-            bottom: 235px;
+            bottom: 282px;
         }
         #input {
             width: 100%;
@@ -82,7 +82,7 @@
             border-radius: 5px;
             color: #000000;
             font-size: 22px;
-            padding: 0px 12px;
+            padding: 6px 12px;
             margin: 2px;
             min-width: 8%;
             flex-grow: 1;
@@ -121,7 +121,7 @@
             z-index: 100;
         }
         .popup-key {
-            padding: 0px 15px;
+            padding: 0px 14px;
             cursor: pointer;
             font-size: 22px;
             background-color: white;
@@ -239,6 +239,7 @@
 
         function showPopup(target, chars) {
             const rect = target.getBoundingClientRect();
+            console.log(rect);
             const popupWidth = 150;
             let left = rect.left + window.scrollX;
             let top = rect.top + window.scrollY - 50;
@@ -249,6 +250,10 @@
 
             if (top < 0) {
                 top = rect.bottom + window.scrollY;
+            }
+
+            if (left > 250) {
+                left = 215;
             }
 
             popup.style.left = `${left}px`;

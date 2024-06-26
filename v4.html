@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>تۆرکجه کیبوْرد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
             align-items: center;
-            min-height: calc(100vh - 80px);
+            min-height: 100vh;
             background-color: #f2f2f7;
         }
         #title {
@@ -30,8 +30,7 @@
         #input-container {
             position: relative;
             width: 100%;
-            padding: 0 10px;
-            margin-bottom: 20px;
+            padding: 0 3px;
         }
         #input {
             width: 100%;
@@ -46,8 +45,8 @@
         }
         #copy-button {
             position: absolute;
-            right: 20px;
-            top: -40px;
+            right: 10px;
+            top: -58px;
             background-color: #007aff;
             color: #ffffff;
             border: none;
@@ -66,6 +65,10 @@
             background-color: #d1d5db;
             padding: 3px;
             user-select: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
         .row {
             display: flex;
@@ -92,11 +95,11 @@
             position: relative;
         }
         .key sup {
-                position: absolute;
-                top: 0;
-                left: 7px;
-                font-size: 14px;
-                color: gray;
+            position: absolute;
+            top: 0;
+            left: 7px;
+            font-size: 14px;
+            color: gray;
         }
         .key:active {
             background-color: #e0e0e0;
@@ -109,27 +112,25 @@
         }
         .popup {
             position: fixed;
-            background-color: #ffffff;
-            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             display: none;
-            padding: 5px;
+            padding: 10px;
             z-index: 100;
         }
         .popup-key {
-            padding: 8px 12px;
+            padding: 12px 16px;
             cursor: pointer;
-            font-size: 18px;
-            background-color: #ffffff;
+            font-size: 22px;
+            background-color: transparent;
             border: none;
-            border-radius: 5px;
             color: #000000;
             margin: 2px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             transition: background-color 0.2s;
         }
         .popup-key:active {
-            background-color: #e0e0e0;
+            background-color: rgba(0, 0, 0, 0.1);
         }
         .small-text {
             font-size: 16px;
@@ -146,7 +147,7 @@
                 <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
-            Copy
+            کپی
         </button>
     </div>
     <div id="keyboard">
@@ -200,7 +201,6 @@
         </div>
     </div>
     <div class="popup" id="popup"></div>
-
     <script>
         const input = document.getElementById('input');
         const keyboard = document.getElementById('keyboard');
@@ -231,20 +231,19 @@
             const newPos = cursorPos + (char === 'وْ' ? 2 : 1);
             input.setSelectionRange(newPos, newPos);
             input.focus();
+            vibrate();
         }
 
         function showPopup(target, chars) {
             const rect = target.getBoundingClientRect();
-            const popupWidth = 150; // Approximate width of the popup
+            const popupWidth = 150;
             let left = rect.left + window.scrollX;
             let top = rect.top + window.scrollY - 50;
 
-            // Adjust horizontal position if it would go off-screen
             if (left + popupWidth > window.innerWidth) {
                 left = window.innerWidth - popupWidth;
             }
 
-            // Adjust vertical position if it would go above the screen
             if (top < 0) {
                 top = rect.bottom + window.scrollY;
             }
@@ -253,11 +252,16 @@
             popup.style.top = `${top}px`;
             popup.innerHTML = chars.map(char => `<button class="popup-key">${char}</button>`).join('');
             popup.style.display = 'flex';
-            
         }
 
         function hidePopup() {
             popup.style.display = 'none';
+        }
+
+        function vibrate() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(10);
+            }
         }
 
         function handleTouchStart(e) {
@@ -269,8 +273,6 @@
                     longPressTimer = setTimeout(() => {
                         showPopup(activeKey, specialChars[char]);
                     }, longPressDuration);
-                } else {
-                    handleKeyPress(char);
                 }
             }
         }
@@ -323,6 +325,7 @@
                 input.setSelectionRange(cursorPos - 1, cursorPos - 1);
             }
             input.focus();
+            vibrate();
         }, { passive: false });
 
         returnKey.addEventListener('touchstart', (e) => {
@@ -336,7 +339,7 @@
             document.execCommand('copy');
             input.setSelectionRange(input.value.length, input.value.length);
             input.focus();
-            // Optional: Provide visual feedback
+            vibrate();
             copyButton.textContent = 'Copied!';
             setTimeout(() => {
                 copyButton.innerHTML = `
@@ -349,7 +352,6 @@
             }, 2000);
         }, { passive: false });
 
-        // Prevent zooming
         document.addEventListener('touchmove', (e) => {
             if (e.scale !== 1) {
                 e.preventDefault();
